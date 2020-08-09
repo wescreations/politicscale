@@ -1,0 +1,127 @@
+
+<%= render(:partial => 'pages/head') %>
+<%#= render(:partial => 'pages/header2') %>
+<body id="page-top">
+   <br><br><br><br>
+<%= render(:partial => 'pages/notify') %>
+<%= render(:partial => 'pages/notify2') %>
+   <!-- Navigation -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav" style="border-bottom: 1px solid #DCDCDC">
+      <div class="row">
+         <div>
+            <%= link_to image_tag('logo01.png', width: '180 ', height: '40'), root_path, :class=> 'building mr-4' %>
+         </div>
+         <% if @counter ==  nil %> 
+            <i class="fas fa-bell lm fa-lg blue" id="bell3"></i>
+         <% else %> 
+            <i class="fas fa-bell lm fa-lg red" id="bell3"><span class="belltext"><%= @counter %></span> </i>
+         <% end %> 
+         <div style="position: absolute; margin-left: 85%;  margin-bottom: 30px;">
+            <button class="navbar-toggler" type="button" id="bell2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" ></span><br>
+            </button>
+         </div>
+      </div><br><br>
+      <%= form_with url: search_path, local: true, method: :get, html: { class: "form-inline" } do |form| %>
+      <%= form.text_field :q, :placeholder => "Search by Candidate or Race Name...", data: { behavior: "autocomplete" }, class: "mediumform mobileformfix" %>
+      <% end %>
+      <div class="container">
+         <ul class="navbar-nav ml-auto">
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                  <% if current_user.avatar.present? %> 
+                    <%= link_to image_tag(current_user.avatar.url, width: '26', height: '24 ', :class => 'circle mr-4 divclass mt-1'), edit_user_registration_path %>
+                  <% else %> 
+                    <%= link_to('Edit Profile', edit_user_registration_path, :class => 'mt-1 mr-3') %> 
+                  <% end %>  
+                     <% if @counter ==  nil %> 
+                        <i class="fas fa-bell mr-4 fa-lg blue" id="bell"></i>
+                     <% else %> 
+                        <i class="fas fa-bell mr-4 fa-lg red" id="bell"><span class="belltext"><%= @counter %></span> </i>
+                     <% end %> 
+                  <%= link_to(  destroy_user_session_path, method: :delete) do %>
+                     <i class="fa fa-sign-out fa-lg blue"></i>
+                  <% end %>
+            </ul>
+         </div>
+      </div>
+   </nav>
+   <nav class="navbar supernavbar">
+      <div class="collapse navbar-collapse" id="pop2">
+         <ul class="navbar-nav">
+            <li> </li><li> </li><br><br>
+            <li class="nav-item mid">
+               <% if current_user %>
+               <%= link_to current_user.username,  edit_user_registration_path %>
+            </li><br>
+            <li class="nav-item mid white">
+              <i class="fa fa-tachometer" style="color: #0844a4;" aria-hidden="true"></i> <%= link_to "Home", root_path, :class => 'ml-2'%>
+            </li><br>
+            <li class="nav-item mid white">
+               <i class="fas fa-user" style="color: #0844a4;"></i><%= link_to "Candidates", candidates_path, :class => 'ml-2'%>
+            </li><br>
+            <li class="nav-item mid white">
+               <i class="fas fa-archway" style="color: #0844a4;"></i> <%= link_to "National Races", national_races_path, :class => 'ml-2'%>
+            </li><br>
+            <li class="nav-item mid white">
+               <i class="fas fa-university" style="color: #0844a4;"></i><%= link_to "State Races", state_races_path, :class => 'ml-2'%>
+            </li><br>
+            <li class="nav-item mid white">
+               <i class="fa fa-envelope" style="color: #0844a4;" aria-hidden="true"></i><%= link_to "Contact Us", root_path, :class => 'ml-2'%>
+            </li><br>
+            <li class="nav-item mid white">
+               <i class="fa fa-sign-out fa-lg blue"></i><%= link_to('logout',  destroy_user_session_path, method: :delete, :class => 'ml-2')%>
+               <%# if current_user.admin == true %> 
+               <% else %> 
+               <%= link_to 'Sign up', new_user_registration_path %>
+               <%= link_to 'Sign in', new_user_session_path %> 
+               <% end %> 
+            </li>
+         </ul>
+      </div>
+   </nav>
+   <script>
+      $(document).ready(function() { 
+      
+            $('.pop').hide();
+      
+          $("#bell").on('click', function (event){
+             $('.pop').toggle();   
+             });
+
+          $("#bell3").on('click', function (event){
+             $('.pop22').toggle();   
+             });
+            
+            $('#pop2').hide();
+            $('.pop22').hide();
+      
+          $("#bell2").on('click', function (event){
+             $('#pop2').toggle();   
+             });
+
+$('input[type=radio][name=calenders]').change(function () {
+  $('#calendar_details_b2c').css("display","none");
+  $('#calendar_details_b2b').css("display","none");
+  $('#calendar_details_b2a').css("display","none");
+  console.log($(this).val());
+  var fieldToShow = $(this).val();
+  $("#" + fieldToShow).css("display","block");
+});
+
+$('input[type=radio][name=calenders2]').change(function () {
+  $('#calendar_details_c2c').css("display","none");
+  $('#calendar_details_c2b').css("display","none");
+  $('#calendar_details_c2a').css("display","none");
+  console.log($(this).val());
+  var fieldToShow = $(this).val();
+  $("#" + fieldToShow).css("display","block");
+
+
+});
+
+      });
+   </script>
+
+
+                        

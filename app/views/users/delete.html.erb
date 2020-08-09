@@ -1,0 +1,18 @@
+<% @page_title = "Delete User" %> 
+
+<%= link_to("<< back to list", users_path, :class => 'back-link') %> 
+
+<div> 
+	<h2> Delete User </h2>
+
+	<%= form_for(@user, :method => 'delete') do |f| %> 
+
+	<p> Are you sure you want to delete this user? </p>
+
+	<p><%= f.object.username %></p>
+
+	<div class="form-buttons"> 
+<%= f.submit("delete user") %> 
+	</div>
+<% end %> 
+</div>

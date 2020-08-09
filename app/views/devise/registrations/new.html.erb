@@ -1,0 +1,58 @@
+<%= render(:partial => 'pages/head') %>
+<% @x = Notification.where(:user_id =>  current_user, :read => false).all.order! 'created_at DESC' %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<body style="background-color: #F5F5F5;">
+<br><br>
+<div class="divvy"> 
+    <div class="container-fluid boxy">  <div style="margin-left: 40px;">
+  <%= image_tag('logo01.png', width: '220', height: '50') %>
+</div>
+  <h4 style="text-align: center; color: #0844a4;">Sign Up!</h4>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :class=> 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username, :class=> 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class=> 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %><br />
+         <%= f.select :state, [
+  " ", "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Minor" "Outlying" "Islands", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon, Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "U.S. Virgin Islands", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+         ], {}, { class: "form-control" } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password", :class=> 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", :class=> 'form-control' %>
+  </div><br>
+
+
+  <div class="actions">
+    <%= f.submit "SIGN UP", :class=> 'btn btn-primary' %>
+  </div>
+<% end %>
+<br>
+<p>Already have an account? <%= render "devise/shared/links" %>
+  © <%= Time.zone.now.year %>  Poltiscale.com
+</div>

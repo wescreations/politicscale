@@ -1,0 +1,37 @@
+
+<%= render(:partial => 'pages/head') %>
+<% @x = Notification.where(:user_id =>  current_user, :read => false).all.order! 'created_at DESC' %>
+<br><br>
+<body style="background-color: #F5F5F5;">
+<div class="divvy">
+  <div style="margin-left: 50px;">
+  <%= image_tag('logo01.png', width: '220', height: '50') %>
+</div>
+  <h4 style="text-align: center; color: #0844a4;">Log In</h4>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), :class=> 'form-group') do |f| %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class=> 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "current-password", :class=> 'form-control' %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "Log in", :class=> 'btn btn-primary' %>
+  </div>
+<% end %><br>
+<%= render "devise/shared/links" %>
+© <%= Time.zone.now.year %>  Poltiscale.com
+</div>
+</body>

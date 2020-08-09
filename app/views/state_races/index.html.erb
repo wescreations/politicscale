@@ -1,0 +1,174 @@
+<%= render(:partial => 'pages/nav') %>
+<%= render(:partial => 'pages/head') %>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+<%= render(:partial => 'pages/aside') %>
+        <main class="col">
+<!--the main page content goes here --><br><br><br>
+         <h2 class="ml-4 top">State Races</h2>
+         <div class="form-inline">
+            <div class="col-sm-9 ml-2"> 
+               <%= form_for "", url: state_races_path, role: "search", method: "get" do %> 
+               <%= search_form_for @q do |f| %>
+               <%= f.search_field :name, :placeholder => "search by name...", :class => "form-control mr-4 bottom" %>
+               <%= f.select :state_cont, [
+                  "", "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Minor" "Outlying" "Islands", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon, Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "U.S. Virgin Islands", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+                  ], {}, { class: "form-control mr-4  bottom", :placeholder => "search by state..." } %>
+               <%= f.submit 'search', :class => 'btn btn-success  bottom searchlong' %>
+               <% end %>
+            </div>
+            <div class="col-sm-2">
+               <% if current_user.admin? %>  
+                  <%= link_to 'New State Race', new_state_race_path, class: 'btn btn-primary ml-2 searchlong', data: { modal: true } %>
+               <% else %> 
+               <% end %> 
+            </div>
+         </div>
+         <% end %> 
+         <div class="row boxy">
+            <% @racs.each do |state_race| %> 
+            <div>
+               <div class="medcard mr-4">
+                  <div class="card-header">
+                     <div class="row">
+                        <div class="col-sm-9">
+                           <p style="color: white; font-size: 16px; font-weight: 600;"><%= state_race.name %></p>
+                        </div>
+                        <div class="starbadge">
+                           <%= link_to like_state_race_path(state_race), id:"like_button_#{state_race.id}", method: :put, remote: :true do %> 
+                           <% if current_user.liked? state_race %>
+                           <i class="fa fa-star liked" id="me_<%=state_race.id%>" ></i>
+                           <% else %> 
+                           <i class="fa fa-star unliked"  id="me_<%=state_race.id%>" ></i>
+                           <% end %> 
+                           <% end %> 
+                           <span class="like-count" style="color: white;" id="<%= "like_count_#{state_race.id}" %>" ><%= state_race.get_upvotes.size %></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                     <% @candidate.each do |candidate| %> 
+                     <% if candidate.state_race_id == state_race.id && candidate.dem_nom == true  %> 
+                     <%= @d = link_to(candidate.name, candidate_path(candidate))  %>(D) vs
+                     <% else %>
+                     <% end %> 
+                     <% end %>
+                     <% @candidate.each do |candidate| %> 
+                     <% if candidate.state_race_id == state_race.id && candidate.repub_nom == true  %> 
+                     <%= @d = link_to(candidate.name, candidate_path(candidate)) %>(R)<br><br>
+                     <% else %>
+                     <% end %> 
+                     <% end %>
+                     <% @z = @candidates.where(:state_race_id =>  state_race.id).size  %> 
+                     <% if @z == 2 %> 
+                     <% else %>
+                     <strong>Candidates Running: </strong>
+                     <%= @candidates.where(:state_race_id =>  state_race.id).size  %> </strong><br>
+                     <% end %> 
+                     <strong>Incumbent: </strong>
+                     <% @candidate.each do |candidate| %> 
+                     <% if candidate.state_race_id2 == state_race.id  %>  
+                     <%= link_to(candidate.name, candidate_path(candidate)) %>
+                     <% break if candidate.state_race_id2 == state_race.id %> 
+                     <% else %>
+                     <% end %> 
+                     <% end %>
+                     <br><strong>Election: </strong>  <%= state_race.election_date.strftime("%B %d, %Y")%><br><br>
+                     <%= link_to("DETAILS", state_race_path(state_race), :class => 'btn btn-primary btn-sm') %>
+                     <% if current_user.admin? %> 
+                     <%= link_to 'EDIT', edit_state_race_path(state_race), class: 'btn btn-success btn-sm', data: { modal: true } %> 
+                     <%= link_to 'DELETE', delete_state_race_path(state_race), class: 'btn btn-danger btn-sm', data: { modal: true } %>
+                     <% else %> 
+                     <% end %> 
+                  </div>
+               </div>
+            </div>
+            <% end %> 
+         </div>
+         <br><br>
+         <div class="digg_pagination">
+            <%= will_paginate(@racs) %> 
+         </div>
+
+      <div class="row boxy">
+         <% @localstate.each do |state_race| %> 
+         <div>
+            <div class="medcard mr-4">
+               <div class="card-header">
+                  <div class="row">
+                     <div class="col-sm-9">
+                        <p style="color: white; font-size: 16px; font-weight: 600;"><%= state_race.name %></p>
+                     </div>
+                     <div class="starbadge">
+                        <%= link_to like_state_race_path(state_race), id:"like_button_#{state_race.id}", method: :put, remote: :true do %> 
+                        <% if current_user.liked? state_race %>
+                        <i class="fa fa-star liked" id="me_<%=state_race.id%>" ></i>
+                        <% else %> 
+                        <i class="fa fa-star unliked"  id="me_<%=state_race.id%>" ></i>
+                        <% end %> 
+                        <% end %> 
+                        <span class="like-count" style="color: white;" id="<%= "like_count2_#{state_race.id}" %>" ><%= state_race.get_upvotes.size %></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <% @candidate.each do |candidate| %> 
+                  <% if candidate.state_race_id == state_race.id && candidate.dem_nom == true  %> 
+                  <%= @d = link_to(candidate.name, candidate_path(candidate))  %>(D) vs
+                  <% else %>
+                  <% end %> 
+                  <% end %>
+                  <% @candidate.each do |candidate| %> 
+                  <% if candidate.state_race_id == state_race.id && candidate.repub_nom == true  %> 
+                  <%= @d = link_to(candidate.name, candidate_path(candidate)) %>(R)<br><br>
+                  <% else %>
+                  <% end %> 
+                  <% end %>
+                  <% @z = @candidates.where(:state_race_id =>  state_race.id).size  %> 
+                  <% if @z == 2 %> 
+                  <% else %>
+                  <strong>Candidates Running: </strong>
+                  <%= @candidates.where(:state_race_id =>  state_race.id).size  %> </strong><br>
+                  <% end %> 
+                  <strong>Incumbent: </strong>
+                  <% @candidate.each do |candidate| %> 
+                  <% if candidate.state_race_id2 == state_race.id  %>  
+                  <%= link_to(candidate.name, candidate_path(candidate)) %>
+                  <% break if candidate.state_race_id2 == state_race.id %> 
+                  <% else %>
+                  <% end %> 
+                  <% end %>
+                  <br><strong>Election: </strong>  <%= state_race.election_date.strftime("%B %d, %Y")%><br><br>
+                  <%= link_to("DETAILS", state_race_path(state_race), :class => 'btn btn-primary btn-sm') %>
+                  <% if current_user.admin? %> 
+                  <%= link_to 'EDIT', edit_state_race_path(state_race), class: 'btn btn-success btn-sm', data: { modal: true } %> 
+                  <%= link_to 'DELETE', delete_state_race_path(state_race), class: 'btn btn-danger btn-sm', data: { modal: true } %>
+                  <% else %> 
+                  <% end %> 
+               </div>
+            </div>
+         </div>
+         <% end %> 
+      </div>
+
+
+        </main>
+    </div></div>
+</div>
+<%= render(:partial => 'pages/footer') %>
+   <script>
+      $(document).ready(function() {
+        $("[id*='me_']").click(e => {
+           let classList = e.target.classList;
+           if (classList.contains("liked")) {
+               classList.add('unliked');
+               classList.remove('liked');
+           } else {
+              classList.remove('unliked');
+               classList.add('liked');
+           }
+          
+        });
+      });
+   </script>
+</body>

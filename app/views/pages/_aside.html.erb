@@ -1,0 +1,24 @@
+        <aside class="col-12 col-md-2 p-0 bg-light righty" style="border-right: 1px #DCDCDC solid;">
+            <nav class="navbar navbar-expand navbar-light bg-light flex-md-column flex-row align-items-start">
+                <div class="collapse navbar-collapse">
+                    <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between"><br><br>
+                        <li class="nav-item">
+                          <i class="fa fa-tachometer" style="color: #0844a4;" aria-hidden="true"></i><%= link_to 'Dashboard', root_path, :class => "ml-2" %>
+                        </li><br>
+                        <li class="nav-item">
+                          <i class="fas fa-user" style="color: #0844a4;"></i><%= link_to 'Candidates', candidates_path, :class => "ml-2" %>
+                        </li><br>
+                        <li class="nav-item">
+                         <i class="fas fa-archway" style="color: #0844a4;"></i></i><%= link_to 'State Races', state_races_path, :class => "ml-2" %>
+                        </li><br>
+                        <li class="nav-item">
+                          <i class="fas fa-university" style="color: #0844a4;"></i><%= link_to 'National Races', national_races_path, :class => "ml-2" %>
+                        </li><br>
+
+                        <li class="nav-item">
+                          <i class="fa fa-envelope" style="color: #0844a4;" aria-hidden="true"></i><%= link_to 'Contact Us', contact_path, :class => "ml-2" %><br><br>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>

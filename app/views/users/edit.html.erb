@@ -1,0 +1,30 @@
+<%     @notifications = Notification.all.order! 'created_at DESC' %> 
+<%      @x = Notification.where(:user_id =>  current_user, :read => false).all.order! 'created_at DESC' %> 
+<%= render(:partial => 'pages/nav') %>
+<%= render(:partial => 'pages/head') %>
+
+<body>
+  <div id="page-content-wrapper">
+    <div class="container-fluid boxy">
+
+<%= link_to("<< back to users", users_path, :class => 'back-link') %> 
+
+<br><br>
+	<div class="divvy">
+		<h2>Update User</h2>
+
+		<%= form_for(@user) do |f| %> 
+
+	<table summary="User form fields">
+		<tr>
+	
+			<th><%= f.label(:admin) %> </th>
+			<td><%= f.check_box :admin  %></td>
+		</tr> 
+	</table>
+
+		<div class="form-buttons">
+			<%= f.submit("Update User") %> 
+		</div>
+		<% end %> 
+	</div>

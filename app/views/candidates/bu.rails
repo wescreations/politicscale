@@ -1,0 +1,44 @@
+<div class="starbadge">
+	<%= link_to like_candidate_path(candidate), class: "like-btn", method: :put, remote: :true do %> 
+	<div>
+		<span><p><i class="fa fa-thumbs-up"></i></p></span>
+	</div>
+	<% end %> 
+	<span class="likes-count"><%= candidate.get_upvotes.size %></span>
+</div>
+
+
+<div class="starbadge">
+	<%= link_to like_candidate_path(candidate), class: "like-btn", method: :put, remote: :true do %> 
+	<div>
+		<span class="fa-stack">
+		<span class="fa fa-star fa-stack-2x"style="color: white; "></span>
+		<strong class="fa-stack-1x" style="color: #0844a4;">
+		<%= candidate.get_upvotes.size %>   
+		</strong>
+		</span>
+	</div>
+	<% end %> 
+</div>
+
+
+
+<% if current_user.liked? candidate %>
+<%= link_to unlike_candidate_path(candidate), class: "like", method: :put do %>
+<span class="fa-stack">
+<span class="fa fa-star fa-stack-2x"style="color: yellow; "></span>
+<strong class="fa-stack-1x" style="color: #0844a4;">
+<%= candidate.get_upvotes.size %>   
+</strong>
+</span>
+<% end %>
+<% else %>
+<%= link_to like_candidate_path(candidate), class: "like", method: :put do %>
+<span class="fa-stack">
+<span class="fa fa-star fa-stack-2x"style="color: white;"></span>
+<strong class="fa-stack-1x" style="color: #0844a4;">
+<%= candidate.get_upvotes.size %>   
+</strong>
+</span>
+<% end %>
+<% end %>

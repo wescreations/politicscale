@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <style>
+ 
+      a {
+        color: white !important;
+        text-decoration: none !important; 
+      }
+
+      button, a {
+        color: white !important;
+        text-decoration: none !important; 
+      }
+    </style>
+
+      <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+   </head>
+   <body>
+      <div style="background-color: white; padding: 20px; ">
+<<<<<<< HEAD
+         <div style="width: 400px; background-color: #f9f9f9; border: solid 1px lightgray; border-radius: 3px; padding: 25px;">
+=======
+         <div style="width: 400px; background-color: #f9f9f9; border: solid 1px lightgray; border-radius: 3px; padding: 25px; margin-left: 15%; margin-right: 15%; ">
+>>>>>>> 2a708a80e735487023325fd225e557bcbc8660a2
+            <h2 style="color: black !important !important;">A new candidate from your state has been added to Politiscale!</h2>
+            <div style="display: inline-block; "> 
+                <strong><p><%= "Candidate Name: "  %></p></strong>
+            </div>
+            <div style="display: inline-block;"> 
+                <p><%= "#{@candidate.name}"  %></p>
+            </div><br>
+            <div style="display: inline-block;"> 
+                <strong><p><%= "Candidate Home State: "  %></p></strong>
+            </div>
+            <div style="display: inline-block;"> 
+                <p><%= "#{@candidate.home_state}"  %></p>
+            </div>
+
+            <div style="padding: 10px 15px; margin-left: 21%; margin-right: 25%;">
+            <button style="color: white !important; background-color: #0844a4; padding: 10px 15px; border-radius: 3px; border: darkgray solid 1px; width: 200px;">
+            <%= link_to "View Candidate", "https://poliking.herokuapp.com/candidates/#{@candidate.id}" %>
+            </button></div> <br>
+            <div style="padding: 10px 15px; margin-left: 21%; margin-right: 25%;">
+               <img src="https://ucarecdn.com/342feb00-c119-40a8-a905-2fb85f7cdcee/" width="210" height="51">
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

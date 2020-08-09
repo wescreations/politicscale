@@ -1,0 +1,73 @@
+      <h2 class="ml-4 mt-4">My City Races</h2>
+      <div class="row boxy">
+         <% @city.each do |city_race| %> 
+         <div>
+            <div class="medcard mr-4">
+               <div class="card-header">
+                  <div class="row">
+                     <div class="col-sm-9">
+                        <p style="color: white; font-size: 18px; font-weight: 600;"><%= city_race.office %></p>
+                     </div>
+                     <div class="col-sm-3">
+                        <% if current_user.liked? city_race %>
+                        <%= link_to unlike_city_race_path(city_race), class: "like", method: :put do %>
+                        <span class="fa-stack">
+                        <span class="fa fa-star fa-stack-2x"style="color: yellow; "></span>
+                        <strong class="fa-stack-1x" style="color: #0844a4;">
+                        <%= city_race.get_upvotes.size %>   
+                        </strong>
+                        </span>
+                        <% end %>
+                        <% else %>
+                        <%= link_to like_city_race_path(city_race), class: "like", method: :put do %>
+                        <span class="fa-stack">
+                        <span class="fa fa-star fa-stack-2x"style="color: white;"></span>
+                        <strong class="fa-stack-1x" style="color: #0844a4;">
+                        <%= city_race.get_upvotes.size %>   
+                        </strong>
+                        </span>
+                        <% end %>
+                        <% end %>
+                     </div>
+                  </div>
+               </div>
+                  <div class="card-body">
+                        <% @candidate.each do |candidate| %> 
+                        <% if candidate.city_race_id == city_race.id && candidate.dem_nom == true  %> 
+                           <%= @d = link_to(candidate.name, candidate_path(candidate))  %>(D) vs
+                        <% else %>
+                        <% end %> 
+                        <% end %>
+                        <% @candidate.each do |candidate| %> 
+                        <% if candidate.city_race_id == city_race.id && candidate.repub_nom == true  %> 
+                        <%= @d = link_to(candidate.name, candidate_path(candidate)) %>(R)<br><br>
+                        <% else %>
+                        <% end %> 
+                        <% end %>
+                        <% @z = @candidates.where(:city_race_id =>  city_race.id).size  %>
+                        <% if @z == 2 %> 
+                        <% else %>
+                     <strong>Candidates Running: </strong>
+                     <%= @candidates.where(:city_race_id =>  city_race.id).size  %> </strong><br>
+                        <% end %> 
+                     <strong>Incumbent: </strong>
+                        <% @candidate.each do |candidate| %> 
+                        <% if candidate.city_race_id2 == city_race.id  %>  
+                           <%= link_to(candidate.name, candidate_path(candidate)) %>
+                        <% break if candidate.city_race_id2 == city_race.id %> 
+                        <% else %>
+                        <% end %> 
+                        <% end %>
+          <br><strong>Election:  </strong><%= city_race.election_date.strftime("%B %d, %Y")%><br><br>
+                  <%= link_to("DETAILS", city_race_path(city_race), :class => 'btn btn-primary btn-sm') %>
+                  <% if current_user.admin? %> 
+                  <%= link_to 'EDIT', edit_city_race_path(city_race), class: 'btn btn-success btn-sm', data: { modal: true } %> 
+                  <%= link_to 'DELETE', delete_city_race_path(city_race), class: 'btn btn-danger btn-sm', data: { modal: true } %>
+                  <% else %> 
+                  <% end %> 
+               </div>
+            </div>
+         </div>
+         <% end %> 
+      </div>
+      <br><br>

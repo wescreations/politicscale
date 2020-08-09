@@ -1,0 +1,27 @@
+<%= render(:partial => 'pages/nav') %>
+<%= render(:partial => 'pages/head') %>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+<%= render(:partial => 'pages/aside') %>
+        <main class="col">
+<!--the main page content goes here --> <br><br><br><p>test</p>
+        </main>
+    </div></div>
+</div>
+<%= render(:partial => 'pages/footer') %>
+   <script>
+      $(document).ready(function() {
+        $("[id*='me_']").click(e => {
+           let classList = e.target.classList;
+           if (classList.contains("liked")) {
+               classList.add('unliked');
+               classList.remove('liked');
+           } else {
+              classList.remove('unliked');
+               classList.add('liked');
+           }
+          
+        });
+      });
+   </script>
+</body>

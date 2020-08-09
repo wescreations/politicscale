@@ -1,0 +1,36 @@
+<%= render(:partial => 'pages/nav') %>
+<%= render(:partial => 'pages/head') %>
+<%     @notifications = Notification.all.order! 'created_at DESC' %> 
+<%      @x = Notification.where(:user_id =>  current_user, :read => false).all.order! 'created_at DESC' %> 
+<body>
+  <div id="page-content-wrapper">
+    <div class="container-fluid boxy">
+<% if current_user.admin == true %> 
+<% @page_title = "All Users" %> 
+
+<div> 
+	<div class="divvywide"><%= pluralize(@user.size, 'user') %> found
+	<h2>Users</h2>
+	<table class="listing" summary="User List"> 
+		<tr class="header"> 
+			<th>Username</th>
+			<th>Email</th>
+			<th>State</th>			
+			<th>Actions</th>
+		</tr>
+
+		<% @user.each do |user| %> 
+		<tr>
+			<td><%= user.username %></td>
+			<td><%= mail_to(user.email) %></td>
+			<td><%= user.state %></td>
+			<td class="actions">
+				<%= link_to("Delete", delete_user_path(user), :class => 'action delete') %>
+				<%= link_to("Edit", edit_user_path(user), :class => 'action edit' ) %>
+			</td>
+		</tr>   
+		<% end %> 
+	</table>
+ <% else %> 
+	<p>Unauthorized</p> 
+ <% end %> 

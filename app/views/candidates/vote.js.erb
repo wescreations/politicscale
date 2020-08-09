@@ -1,0 +1,12 @@
+
+  // $('#like_button_<%=@candidate.id%>').addClass('unliked');
+
+  // $('#like_button2_<%=@candidate.id%>').addClass('liked');
+
+
+// $('#me<%=@candidate.id%>').click(e => {
+// 	console.log(e);
+// 	e.target.classList.toggle('liked');
+// })
+
+$('#like_count_<%=@candidate.id%>').html("<%= @candidate.get_upvotes.size %>")

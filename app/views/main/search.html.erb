@@ -1,0 +1,16 @@
+  
+<div class="row">
+  <div class="col">
+    <h1>Candidates</h1>
+    <% @candidates.each do |candidate| %>
+      <p><%= link_to candidate.name, candidate %></p>
+    <% end %>
+  </div>
+
+<div class="row">
+  <div class="col">
+    <h1>Pets</h1>
+    <% @pets.each do |pet| %>
+      <p><%= link_to pet.name, pet %></p>
+    <% end %>
+  </div>

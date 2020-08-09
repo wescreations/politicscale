@@ -1,0 +1,124 @@
+<%= render(:partial => 'pages/header3') %>
+
+<body>
+  <div id="page-content-wrapper">
+    <%= render(:partial => 'pages/nav') %>
+    <div class="container-fluid boxy">
+        <h1>Office: <%= @city_race.office %></h1>
+
+<table class="table table-striped"  style="width: 1300px;">
+
+  <tbody>
+    <tr>
+      <th scope="row">Election Date</th>
+      <td><%= @city_race.election_date %></td>
+    </tr>
+    <tr>
+      <th scope="row">Salary</th>
+      <td><%= @city_race.salary %></td>
+    </tr>
+    <tr>
+      <th scope="row">Election Date</th>
+      <td><%= @city_race.election_date %></td>
+    </tr>
+    <tr>
+      <th scope="row">Currently Held By</th>
+      <td>
+        <% @candidate.each do |candidate| %> 
+        <% if candidate.city_race_id2 == @city_race.id  %>  
+          <%= link_to(candidate.name, candidate_path(candidate)) %>
+            <% break if candidate.city_race_id2 == @city_race.id %> 
+        <% else %>
+        <% end %> 
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Election Date</th>
+      <td><%= @city_race.election_date %></td>
+    </tr>
+    <tr>
+      <th scope="row"># of Republicans Running</th>
+      <td>
+          <%= @candidates.where(:party => "Republican", :city_race_id =>  @city_race.id).size  %> 
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Republicans Running</th>
+      <td>
+          <% @candidate.each do |candidate| %> 
+          <% if candidate.city_race_id == @city_race.id && candidate.party == 'Republican'   %> 
+
+           <%= link_to(candidate.name, candidate_path(candidate), :class => "badge-pill badge-primary") %>
+    <% else %> 
+    <% end %> 
+    <% end %>       
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"># of Democrats Running</th>
+      <td>
+          <%= @candidates.where(:party => "Democrat", :city_race_id =>  @city_race.id).size  %> 
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Democrats Running</th>
+      <td>
+          <% @candidates.each do |candidate| %> 
+          <% if candidate.city_race_id == @city_race.id && candidate.party == 'Democrat'   %> 
+
+           <%= link_to(candidate.name, candidate_path(candidate), :class => "badge-pill badge-primary") %>
+    <% else %> 
+    <% end %> 
+    <% end %>       
+</td>
+    </tr>
+    <tr>
+      <th scope="row">Next Debate</th>
+      <td><%= @city_race.next_debate %></td>
+    </tr>
+    <tr>
+      <th scope="row">Previously Held By</th>
+      <td><%= @city_race.previously_held_by %></td>
+    </tr>
+    <tr>
+      <th scope="row">Past Elections</th>
+      <td><%= @city_race.past_elections %></td>
+    </tr>
+  </tbody>
+</table>
+<div class="container"> 
+<div class="row">
+		<% @candidate.each do |candidate| %> 
+
+
+		<% if candidate.city_race_id == @city_race.id  %> 
+
+		<div class= "col-sm-4">
+			<div class="card" style="width: 18rem;">
+  			<div><%= image_tag candidate.main_photo, size:180, :class => 'card-img-top' %></div>
+  			<div class="card-body">
+  				<h4><%= candidate.name %></h4>
+  												
+				<%= link_to(candidate.city_race.office, city_race_path(candidate.city_race_id)) %><br><br>
+
+
+				<%= link_to("DETAILS", candidate_path(candidate), :class => 'btn btn-primary') %>
+
+				<% if current_user.admin? %> 
+				<%= link_to("EDIT", edit_candidate_path(candidate), :class => 'btn btn-success') %> 
+				<%= link_to("DELETE", delete_candidate_path(candidate), :class => 'btn btn-danger') %>
+				<% else %> 
+
+				<% end %> 
+
+			</div>
+ 		 </div>
+		</div> 
+		<% else %> 
+
+		<% end %> 
+		<% end %> 
+	</div>
+</div>
+</div>

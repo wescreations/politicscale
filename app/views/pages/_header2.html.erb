@@ -1,0 +1,44 @@
+<script>
+$(document).ready(function() { 
+
+
+          $('.pop').hide();
+
+        $("#bell").on('click', function (event){
+           $('.pop').toggle();   
+           });
+
+        $("#bell2").on('click', function (event){
+           $('.pop').toggle();   
+           });
+
+         $('#pop2').hide();
+
+        $("#click").on('click', function (event){
+           $('#pop2').toggle();   
+           });
+
+
+
+$('input[type=radio][name=calenders]').change(function () {
+  $('#calendar_details_b2c').css("display","none");
+  $('#calendar_details_b2b').css("display","none");
+  $('#calendar_details_b2a').css("display","none");
+  console.log($(this).val());
+  var fieldToShow = $(this).val();
+  $("#" + fieldToShow).css("display","block");
+});
+
+$('input[type=radio][name=calenders2]').change(function () {
+  $('#calendar_details_c2c').css("display","none");
+  $('#calendar_details_c2b').css("display","none");
+  $('#calendar_details_c2a').css("display","none");
+  console.log($(this).val());
+  var fieldToShow = $(this).val();
+  $("#" + fieldToShow).css("display","block");
+
+
+});
+
+    });
+</script>

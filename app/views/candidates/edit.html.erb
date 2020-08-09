@@ -1,0 +1,16 @@
+<%= render(:partial => 'pages/header2') %>
+
+<%= form_for(@candidate, remote: request.xhr?, html: { data: { modal: true }}) do |f| %> 
+
+<%= render(:partial => 'form', :locals => {:f => f}) %>
+	<div>
+		<% content_for :title do %>
+    		Edit Candidate
+		<% end %> 
+	</div>
+	 <div class="modal-footer">
+		 		<%= f.submit 'UPDATE', :class => 'btn btn-primary'%> 
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	</div>
+<% end %> 

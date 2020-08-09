@@ -1,0 +1,113 @@
+<%= render(:partial => 'pages/nav') %>
+<%= render(:partial => 'pages/head') %>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+<%= render(:partial => 'pages/aside') %>
+        <main class="col">
+<!--the main page content goes here --> <br><br><br>
+         <h2 class="ml-4 top">Candidates</h2>
+         <div class="form-inline">
+            <div class="col-sm-9 ml-2">  
+               <%= form_for "", url: candidates_path, role: "search", method: "get" do %> 
+               <%= search_form_for @q do |f| %>
+               <%= f.search_field :name_cont, :placeholder => "search by name...", :class => "form-control mr-4 searchlong bottom formblack" %>
+               <%= f.select :party_cont, [" ", "Democrat","Republican","Independent"], {}, { class: "form-control mr-4 searchlong bottom ", :placeholder => "search by name..." } %>
+               <%= f.submit 'search', :class => 'btn btn-success mr-4 searchlong bottom ' %>
+               <% end %>
+            </div>
+            <div class="col-sm-2 ml-2"> 
+            <% if current_user.admin? %> 
+               <%= link_to 'NEW CANDIDATE', new_candidate_path, class: 'btn btn-primary searchlong', data: { modal: true } %>
+            <% else %> 
+            <% end %> 
+            </div>
+            <br>
+         </div>
+         <% end %> 
+         <div class="row boxy">
+            <% @cans.each do |candidate| %> 
+            <div>
+               <div class="card mr-4">
+                  <div><%= image_tag candidate.avatar.url, size:160, :class => 'card-img-top' %></div>
+                  <div class="badge">
+                     <%=   candidate.score   %>
+                     <% if candidate.party == "Republican" %> 
+                     <%= image_tag('r.png', size:48) %> 
+                     <% elsif candidate.party == "Democrat" %> 
+                     <%= image_tag('d.png', size:48) %> 
+                     <% elsif candidate.party == "Independent" %> 
+                     <%= image_tag('i.png', size:48) %> 
+                     <% else %> 
+                     <% end %> 
+                  </div>
+                  <div class="starbadge">
+                     <%= link_to like_candidate_path(candidate), id:"like_button_#{candidate.id}", method: :put, remote: :true do %> 
+                     <% if current_user.liked? candidate %>
+                     <i class="fa fa-star liked" id="me_<%=candidate.id%>" ></i>
+                     <% else %> 
+                     <i class="fa fa-star unliked"  id="me_<%=candidate.id%>" ></i>
+                     <% end %> 
+                     <% end %> 
+                     <span class="like-count" id="<%= "like_count_#{candidate.id}" %>" ><%= candidate.get_upvotes.size %></span>
+                  </div>
+                  <div class="card-body">
+                     <h5><%= candidate.name %></h5>
+                     <% if candidate.national_race_id? %> 
+                     <strong>Running For:</strong> <%= link_to(candidate.national_race.name, national_race_path(candidate.national_race_id)) %><br>
+                     <% elsif candidate.state_race_id? %>
+                     <strong>Running For:</strong> <%= link_to(candidate.state_race.name, state_race_path(candidate.state_race_id)) %><br>
+                     <% else %> 
+                     <strong>Running For:</strong> N/A <br>
+                     <% end %> 
+                     <% if candidate.city_race_id2? %> 
+                     <% @yyy = CityRace.find_by(id: candidate.city_race_id2).office %> 
+                     <br><strong>Current Office: </strong><%= link_to(@yyy, city_race_path(candidate.city_race_id2)) %><br>
+                     <% elsif candidate.state_race_id2? %> 
+                     <% @yyy = StateRace.find_by(id: candidate.state_race_id2).name %> 
+                     <br><strong>Current Office: </strong><%= link_to(@yyy, state_race_path(candidate.state_race_id2)) %><br>
+                     <% elsif candidate.national_race_id2? %> 
+                     <% @yyy = NationalRace.find_by(id: candidate.national_race_id2).name %> 
+                     <br><strong>Current Office: </strong><%= link_to(@yyy, national_race_path(candidate.national_race_id2)) %><br>
+                     <% else %>
+                     <br><strong>Current Office: </strong>None<br>
+                     <% end %>
+                     <br><%= link_to("DETAILS", candidate_path(candidate), :class => 'btn btn-primary btn-sm') %>         
+                     <% if current_user.admin? %> 
+                     <%= link_to 'EDIT', edit_candidate_path(candidate), class: 'btn btn-success btn-sm', data: { modal: true } %>
+                     <%= link_to 'DELETE', delete_candidate_path(candidate), class: 'btn btn-danger btn-sm', data: { modal: true } %>
+                     <% else %> 
+                     <% end %> <br>
+                     <div>
+                        <%# candidate.votes_for.up.by_type(User).voters.each do |l| %>
+                        <%#= image_tag l.avatar, size:40, :class => 'circle'  %>
+                        <%#= l.username %> 
+                        <%# end %>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <% end %> 
+         </div>
+         <div class="digg_pagination">
+            <%= will_paginate(@cans) %>
+         </div>
+        </main>
+    </div></div>
+</div>
+<%= render(:partial => 'pages/footer') %>
+   <script>
+      $(document).ready(function() {
+        $("[id*='me_']").click(e => {
+           let classList = e.target.classList;
+           if (classList.contains("liked")) {
+               classList.add('unliked');
+               classList.remove('liked');
+           } else {
+              classList.remove('unliked');
+               classList.add('liked');
+           }
+          
+        });
+      });
+   </script>
+</body>

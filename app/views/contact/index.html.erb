@@ -1,0 +1,19 @@
+<%= render(:partial => 'pages/nav') %>
+<%= render(:partial => 'pages/head') %>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+<%= render(:partial => 'pages/aside') %>
+        <main class="col"><br><br><br>
+        <div class="col-sm-6">
+        	<h2 class="ml-3 top">Contact Us</h2>	
+        <p class="ml-3">
+        	Please submit your this contact form if you're from a campaign and would like to submit information about a particular candidate, or for any other inquiry. 
+        </p>
+        </div>	
+<!--the main page content goes here -->
+    <%= render 'contact_form' %> 
+        </main>
+    </div></div>
+</div>
+<%= render(:partial => 'pages/footer') %>
+</body>

@@ -1,0 +1,14 @@
+<%= form_for(@state_race, remote: request.xhr?, html: { data: { modal: true }}) do |f| %> 
+
+<%= render(:partial => 'form', :locals => {:f => f}) %>
+	<div>
+		<% content_for :title do %>
+    		Edit State Race
+		<% end %> 
+	</div>
+	 <div class="modal-footer">
+		 		<%= f.submit 'UPDATE', :class => 'btn btn-primary'%> 
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	</div>
+<% end %> 

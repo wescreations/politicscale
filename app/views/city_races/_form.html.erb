@@ -1,0 +1,85 @@
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="form-group"  style="width: 100%;">
+				<label>Office</label>
+				 <%= f.text_field :office, :class=> 'form-control' %>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>Salary</label>
+				 <%= f.number_field :salary, :class=> 'form-control'  %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Next Debate</label>
+				 <%= f.date_field :next_debate, :class=> 'form-control' %>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Election Date</label>
+				 <%= f.date_field :election_date, :class=> 'form-control' %>
+			</div>
+		</div>
+	</div>	
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Incumbent</label>
+				 <%= f.text_field :incumbent, :class=> 'form-control' %>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Previously Held By</label>
+				 <%= f.text_field :previously_held_by, :class=> 'form-control' %>
+			</div>
+		</div>
+	</div>			
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Democratic Nominee</label>
+				 <%= f.text_field :democratic_nominee, :class=> 'form-control' %>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Republican Nominee</label>
+				 <%= f.text_field :republican_nominee, :class=> 'form-control' %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="form-group" style="width: 100%;">
+				<label>Republican's Running</label>
+				<%= f.text_field :repubs_running, :class=> 'form-control' %>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label># Running</label>
+				 <%= f.number_field :num_of_repubs, :class=> 'form-control' %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="form-group" style="width: 100%;">
+				<label>Democrat's Running</label>
+				<%= f.text_field :dems_running, :class=> 'form-control' %>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label># Running</label>
+				 <%= f.number_field :num_of_dems, :class=> 'form-control'%>
+			</div>
+		</div>
+	</div>			
+    <br><br>

@@ -1,0 +1,66 @@
+%body
+  = render(:partial => 'pages/header3')
+  #page-content-wrapper
+    = render(:partial => 'pages/nav')
+    .container-fluid.boxy
+      %h2 Candidates
+      = form_for "", url: candidates_path, role: "search", method: "get" do
+        .row
+          .col-sm-9
+            = search_form_for @q do |f|
+              = f.search_field :name_cont, :placeholder => "search by name...", :class => "form-control mr-4"
+              = f.select :party_cont, [" ", "Democrat","Republican","Independent"], {}, { class: "form-control mr-4", :placeholder => "search by name..." }
+              = f.submit 'search', :class => 'btn btn-success'
+          .col-sm-1
+            .col-sm-2
+              = link_to 'New', new_candidate_path, class: 'btn btn-primary', data: { modal: true }
+          .row.boxy
+            - @cans.each do |candidate|
+              .col-sm-3
+                .card
+                  %div= image_tag candidate.main_photo, size:140, :class => 'card-img-top'
+                  .badge
+                    - if candidate.party == "Republican"
+                      = image_tag('r.png', size:48)
+                    - elsif candidate.party == "Democrat"
+                      = image_tag('d.png', size:48)
+                    - elsif candidate.party == "Independent"
+                      = image_tag('i.png', size:48)
+                    - else
+                  .card-body
+                    %h5= candidate.name
+                    %h6= candidate.party
+                    - if candidate.national_race_id?
+                      = link_to(candidate.national_race.name, national_race_path(candidate.national_race_id))
+                      %br/
+                      %br/
+                    - elsif candidate.city_race_id?
+                      = link_to(candidate.city_race.office, city_race_path(candidate.city_race_id))
+                      %br/
+                      %br/
+                    - elsif candidate.state_race_id?
+                      = link_to(candidate.state_race.office, state_race_path(candidate.state_race_id))
+                      %br/
+                      %br/
+                    - else
+                      %p nothing
+                    = link_to("DETAILS", candidate_path(candidate), :class => 'btn btn-primary btn-sm')
+                    - if current_user.admin?
+                      = link_to 'EDIT', edit_candidate_path(candidate), class: 'btn btn-success btn-sm', data: { modal: true }
+                      = link_to 'DELETE', delete_candidate_path(candidate), class: 'btn btn-danger btn-sm', data: { modal: true }
+                    - else
+                    %br/
+                    - if current_user.liked? candidate
+                      = link_to unlike_candidate_path(candidate), class: "like", method: :put do
+                        %span{:style => "color: yellow;"}
+                          %i.fas.fa-star{"aria-hidden" => "true"}
+                    - else
+                      = link_to like_candidate_path(candidate), class: "like", method: :put do
+                        %span{:style => "color: #0844a4;"}
+                          %i.far.fa-star{"aria-hidden" => "true"}
+                    .btn.btn-info.btn-sm
+                      %span#click.badge
+                        = candidate.get_upvotes.size
+                    #pop2
+          .digg_pagination
+            = will_paginate(@candidate)

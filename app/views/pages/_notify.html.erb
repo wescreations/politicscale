@@ -1,0 +1,41 @@
+   <div class="pop notify">
+      <% @x.each do |notify| %> 
+      <% @a = candidate_path(notify.link_path, notify_id: notify.id) %> 
+      <% @b = state_race_path(notify.link_path, notify_id: notify.id) %> 
+      <% @c = national_race_path(notify.link_path, notify_id: notify.id) %> 
+      <% if notify.message_type == 'update' %>
+      <% @final_link = @a %> 
+      <% elsif notify.message_type == 'state_new' %>
+      <% @final_link = @b %> 
+      <% elsif notify.message_type == 'national_new' %>
+      <% @final_link = @c %> 
+      <% end %>  
+      <%= link_to @final_link do %>
+      <div class="row notifyrow">
+         <div class="col-sm-1">
+            <% if notify.message_type == 'update'%>
+            <i class="fas fa-user notifytop"></i>
+            <% elsif notify.message_type == 'poll' %> 
+            <i class="fas fa-poll notifytop"></i>
+            <% elsif notify.message_type == 'state_new' %> 
+            <i class="fas fa-archway notifytop"></i>
+            <% elsif notify.message_type == 'national_new' %> 
+            <i class="fas fa-university notifytop"></i>
+            <% end %> 
+         </div>
+         <div class="col-sm-7 notifytop">
+            <p class="message_style"> <%= notify.message %></p>
+         </div>
+         <div class="col-sm-3 notifytop">
+            <strong>
+               <p class="time_style"> <%= time_ago_in_words(notify.created_at )%> ago</p>
+               <p> <% @x.count %> </p>
+            </strong>
+         </div>
+      </div>
+      <% end %> 
+      <% end %> 
+      <div class="viewallnotify">
+         <%= link_to("View All", notifications_path) %>
+      </div>
+   </div>

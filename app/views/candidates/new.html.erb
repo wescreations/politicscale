@@ -1,0 +1,14 @@
+<%= form_for(@candidate, :method => 'new', remote: request.xhr?, html: { data: { modal: true }},:multipart => true) do |f| %> 
+<%= render(:partial => 'form', :locals => {:f => f}) %>
+	<div>
+		<% content_for :title do %>
+    		Add Candidate
+		<% end %>
+	</div>
+	 <div class="modal-footer">
+		 		<%= f.submit 'CREATE', :class => 'btn btn-primary'%> 
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	</div>
+<% end %> 
+

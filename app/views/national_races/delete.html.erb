@@ -1,0 +1,19 @@
+<%= form_for(@national_race, :method => 'delete', remote: request.xhr?, html: { data: { modal: true } } ) do |f| %> 
+
+		<% content_for :title do %>
+			 Delete Candidate
+		<% end %>
+
+		<p> Are you sure you want to delete this? </p>
+
+		<p><%= f.object.name %></p>
+
+	 <div class="modal-footer">
+		 		<%= f.submit 'DELETE', :class => 'btn btn-danger'%> 
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	</div>
+
+	<% end %> 
+</div>
+

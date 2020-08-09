@@ -1,0 +1,13 @@
+
+log/development.log
+*.log
+log/development.log
+log/development.log
+/config/secrets.yml
+log/development.log
+log/development.log
+*.log
+/log
+/tmp
+node_modules/
+.env
