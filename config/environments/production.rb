@@ -1,19 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-config.paperclip_defaults = {
-    storage: :s3,
-    url: ':s3_domain_url',
-    s3_credentials: {
-      bucket: "carbonlite",
-      access_key_id: ENV["AWS_ACCESS_KEY_ID"],
-      secret_access_key: ENV["AWS_SECRET_KEY_ID"]
-    },
-    s3_region: "us-east-2",
-    path: "/:class/:attachment/:id_partition/:style/:hash.:extension",
-    hash_secret: Rails.application.secrets.secret_key_base,
-    default_url: "/missing-:style.png"
-  }
-  # Code is not reloaded between requests.
+
 # config.paperclip_defaults = {
 #     storage: :s3,
 #     url: ':s3_domain_url',
@@ -28,7 +15,7 @@ config.paperclip_defaults = {
 #     default_url: "/missing-:style.png"
 #   }
   # Code is not reloaded between requests.
-config.action_mailer.asset_host = 'https://poliking.herokuapp.com/'
+config.action_mailer.asset_host = 'https://politicscale.herokuapp.com/'
 
   config.paperclip_defaults = {
   storage: :s3,
@@ -153,7 +140,7 @@ config.action_mailer.asset_host = 'https://poliking.herokuapp.com/'
 # config/environments/production
 
  # Setup the mailer config
-config.action_mailer.default_url_options = { :host => 'poliking.herokuapp.com' }  
+config.action_mailer.default_url_options = { :host => 'politicscale.herokuapp.com' }  
 config.action_mailer.delivery_method = :smtp
 
 config.action_mailer.perform_deliveries = true
